@@ -91,8 +91,8 @@ Replace `[arguments]` with the actual arguments for the tool.
 The Dynamic Application Security Testing Tool accepts several command-line arguments:
 
 - `-t, --target`: (Required) Target Url to scan.
-- `-ov, --output-via`: (Required) Specify output method: "file" or "webhook".
-- `-w, --webhook`: Webhook URL (required if output_via is "webhook").
+- `-ov, --output-via`: (Required) Output method. Only `file` is supported for now; webhook output is not implemented yet.
+- `-w, --webhook`: Reserved for future webhook output (not implemented yet).
 - `-o, --output`: File path for output (required if output_via is "file").
 - `-l, --log`: Log level (DEBUG or ERROR, default is DEBUG).
 
@@ -103,10 +103,6 @@ The Dynamic Application Security Testing Tool accepts several command-line argum
    sudo docker run --rm -it -v $(pwd)/output:/output dynamic-application-security-testing:latest -t https://juice-shop.herokuapp.com -ov file -o /output/results.json
    ```
 
-2. Scan a target  and send results to a webhook:
-   ```bash
-   sudo docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock dynamic-application-security-testing:latest -t http://www.vulnweb.com/ -ov webhook -w https://your-webhook-url.com
-   ```
 
 
 Note: When using file output, you need to mount volumes to access the results from your host machine.
@@ -115,7 +111,7 @@ Note: When using file output, you need to mount volumes to access the results fr
 
 1. **Permission Issues**: If you encounter permission problems when writing to mounted volumes, you may need to adjust the permissions or use a named volume.
 
-2. **Network Issues**: Ensure your Docker network settings allow the container to access the target network or webhook URL.
+2. **Network Issues**: Ensure your Docker network settings allow the container to access the target network.
 
 3. **Missing Requirements**: If the build fails due to missing requirements, check that your `requirements.txt` file is up to date and includes all necessary dependencies.
 
